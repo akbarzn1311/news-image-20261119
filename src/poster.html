@@ -5,603 +5,287 @@
 <title>The World Ledger — 19 November 2026</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 1024px; height: 1024px; overflow: hidden; }
-  body { background: #F6F1E3; color: #14232E; font-family: Arial, Helvetica, sans-serif; }
-  .page { width: 1024px; height: 1024px; padding: 16px 24px 8px; display: flex; flex-direction: column; }
-
-  /* ============ DATE BAR ============ */
-  .datebar { border-top: 3px solid #14232E; border-bottom: 1px solid #14232E; padding: 5px 2px; display: flex; justify-content: space-between; font-size: 11px; font-weight: bold; letter-spacing: 2px; }
-  .datebar .mid { color: #B3352B; }
-
-  /* ============ MASTHEAD ============ */
-  .masthead { text-align: center; padding: 7px 0 5px; }
-  .masthead h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 56px; line-height: 1; letter-spacing: 6px; font-weight: 900; }
-  .masthead h1 .red { color: #B3352B; }
-  .masthead .tag { font-family: Georgia, serif; font-style: italic; font-size: 13px; color: #3D4A55; margin-top: 3px; letter-spacing: 0.5px; }
-
-  /* ============ HEADLINE ============ */
-  .headline { border-top: 1px solid #14232E; border-bottom: 3px double #14232E; padding: 6px 2px 7px; text-align: center; }
-  .headline h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 29px; line-height: 1.05; font-weight: 900; letter-spacing: 0.5px; }
-  .headline p { font-size: 12.5px; color: #3D4A55; margin-top: 4px; }
-
-  /* ============ MAIN GRID ============ */
-  .grid { display: flex; gap: 18px; flex: 1; margin-top: 10px; min-height: 0; }
-  .main { width: 652px; display: flex; flex-direction: column; min-height: 0; }
-  .side { width: 296px; display: flex; flex-direction: column; min-height: 0; }
-
-  /* ============ HERO TRIO ============ */
-  .heroes { display: flex; gap: 12px; }
-  .hero { flex: 1; background: #FFFDF6; border: 1px solid #14232E; padding: 8px 9px 6px; display: flex; flex-direction: column; }
-  .hero svg { width: 100%; height: 50px; display: block; }
-  .kicker { font-size: 9px; font-weight: bold; letter-spacing: 1.5px; margin-top: 5px; }
-  .hero h3 { font-family: Georgia, serif; font-size: 14.5px; line-height: 1.15; font-weight: 900; margin-top: 3px; }
-  .hero p { font-size: 10.5px; line-height: 1.35; margin-top: 4px; flex: 1; }
-  .src { font-size: 8.5px; font-weight: bold; letter-spacing: 1px; color: #6B7680; margin-top: 5px; }
-
-  /* ============ PULL NUMBERS ============ */
-  .pulls { display: flex; gap: 12px; margin-top: 7px; }
-  .pull { flex: 1; background: #14232E; color: #F6F1E3; padding: 6px 10px 5px; }
-  .pull .num { font-family: Georgia, serif; font-size: 24px; font-weight: 900; line-height: 1; }
-  .pull .num .unit { font-size: 15px; }
-  .pull .lbl { font-size: 9px; line-height: 1.3; margin-top: 3px; color: #D8DEE3; }
-  .pull .lbl b { color: #F2C14E; }
-  .pull.markets { background: #FFFDF6; color: #14232E; border: 1px solid #14232E; }
-  .pull.markets .lbl { color: #3D4A55; }
-  .bar-row { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 9.5px; font-weight: bold; }
-  .bar { height: 8px; background: #0E6E6A; }
-  .bar.neg { background: #B3352B; }
-  .bar-lbl { width: 34px; flex: none; }
-  .bar-val { flex: none; }
-
-  /* ============ MAP ============ */
-  .mapbox { margin-top: 7px; border: 1px solid #14232E; background: #EDE7D3; padding: 5px 8px 3px; }
-  .mapbox .maphead { display: flex; justify-content: space-between; font-size: 10px; font-weight: bold; letter-spacing: 1.5px; padding: 0 2px 4px; }
-  .mapbox .maphead span:last-child { color: #6B7680; font-weight: normal; letter-spacing: 0.5px; }
-  .mapbox svg { width: 100%; height: auto; display: block; }
-
-  /* ============ NUMBERED LIST ============ */
-  .list { display: flex; gap: 14px; margin-top: 7px; flex: 1; }
-  .listcol { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-  .item { display: flex; gap: 7px; }
-  .num-badge { flex: none; width: 20px; height: 20px; border-radius: 50%; background: #14232E; color: #F6F1E3; font-size: 11px; font-weight: bold; text-align: center; line-height: 20px; margin-top: 1px; }
-  .item .txt { min-width: 0; }
-  .item .title { font-size: 12px; font-weight: bold; line-height: 1.15; }
-  .item .title .cat { font-size: 8.5px; letter-spacing: 1px; }
-  .item .body { font-size: 10px; line-height: 1.28; color: #2A3742; margin-top: 1px; }
-  .item .body .s { font-size: 8.5px; font-weight: bold; color: #6B7680; letter-spacing: 0.5px; }
-
-  /* ============ SIDEBAR ============ */
-  .sidebar { border: 1px solid #14232E; background: #FFFDF6; flex: 1; display: flex; flex-direction: column; padding: 8px 10px 6px; }
-  .sidehead { border-bottom: 2px solid #B3352B; padding-bottom: 5px; }
-  .sidehead h4 { font-family: Georgia, serif; font-size: 16px; font-weight: 900; letter-spacing: 0.5px; }
-  .sidehead p { font-size: 9.5px; color: #6B7680; margin-top: 2px; letter-spacing: 1px; }
-  .side-items { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding-top: 2px; }
-  .sitem { display: flex; gap: 7px; padding: 4px 0; border-bottom: 1px dotted #B9B2A0; }
-  .sitem:last-child { border-bottom: none; }
-  .sitem .n { flex: none; font-family: Georgia, serif; font-size: 13px; font-weight: 900; color: #B3352B; width: 18px; }
-  .sitem .t { font-size: 10.5px; line-height: 1.32; }
-  .sitem .t b { font-size: 10.5px; }
-  .sitem .t .s { font-size: 8.5px; font-weight: bold; color: #6B7680; letter-spacing: 0.5px; }
-
-  /* ============ FOOTER ============ */
-  .footer { border-top: 2px solid #14232E; margin-top: 6px; padding-top: 5px; display: flex; justify-content: space-between; gap: 12px; font-size: 9px; line-height: 1.45; color: #3D4A55; }
-  .footer b { color: #14232E; letter-spacing: 1px; }
-  .footer .right { text-align: right; flex: none; }
+  html, body { width: 1024px; height: 1024px; }
+  body {
+    background: #f6f1e3; color: #14213d;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    padding: 14px 20px 12px;
+  }
+  .serif { font-family: Georgia, "Times New Roman", serif; }
+  /* ---------- masthead ---------- */
+  .topbar {
+    display: flex; justify-content: space-between;
+    font-size: 9px; letter-spacing: 2.5px; font-weight: 700;
+    border-top: 3px solid #14213d; border-bottom: 1px solid #14213d;
+    padding: 4px 2px; color: #14213d;
+  }
+  h1.masthead {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 58px; line-height: 1; text-align: center;
+    letter-spacing: 1px; padding: 6px 0 4px; color: #14213d;
+  }
+  h1.masthead span { color: #c1272d; }
+  .datebar {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #14213d; color: #f6f1e3;
+    font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+    padding: 6px 10px; margin-bottom: 8px;
+  }
+  .datebar .count { color: #f2b705; }
+  /* ---------- heroes ---------- */
+  .heroes { display: flex; gap: 10px; margin-bottom: 8px; }
+  .hero {
+    flex: 1; background: #fffdf6; border: 1px solid #d8cfb8;
+    border-top: 4px solid #c1272d; padding: 8px 9px 7px;
+    height: 188px; overflow: hidden;
+  }
+  .hero:nth-child(2) { border-top-color: #1f7a6d; }
+  .hero:nth-child(3) { border-top-color: #f2b705; }
+  .hero svg { display: block; width: 100%; height: 62px; margin-bottom: 5px; }
+  .kicker {
+    font-size: 9px; font-weight: 700; letter-spacing: 2px;
+    color: #c1272d; margin-bottom: 3px;
+  }
+  .hero:nth-child(2) .kicker { color: #1f7a6d; }
+  .hero:nth-child(3) .kicker { color: #9a7400; }
+  .hero h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px; line-height: 1.12; margin-bottom: 4px;
+  }
+  .hero p { font-size: 10.5px; line-height: 1.35; color: #333c4e; }
+  .src {
+    display: inline-block; font-size: 8px; font-weight: 700;
+    letter-spacing: 1px; background: #14213d; color: #fff;
+    padding: 2px 5px; margin-top: 5px;
+  }
+  /* ---------- stats ---------- */
+  .stats { display: flex; gap: 10px; margin-bottom: 8px; }
+  .stat {
+    flex: 1; background: #14213d; color: #f6f1e3;
+    padding: 7px 10px 6px; height: 58px; overflow: hidden;
+  }
+  .stat .num {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 24px; line-height: 1; color: #f2b705;
+  }
+  .stat .lbl { font-size: 9px; letter-spacing: 1.5px; font-weight: 700; margin-top: 3px; }
+  .stat .who { font-size: 8px; color: #b9c2d4; letter-spacing: 1px; }
+  .markets {
+    flex: 1; background: #fffdf6; border: 1px solid #d8cfb8;
+    padding: 7px 10px 6px; height: 58px; overflow: hidden;
+  }
+  .markets .mhead { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: #c1272d; }
+  .markets .mrow { font-size: 12px; font-weight: 700; margin-top: 4px; }
+  .markets .mrow .up { color: #1f7a6d; }
+  .markets .mrow .down { color: #c1272d; }
+  .markets .msub { font-size: 9px; color: #5a6478; margin-top: 2px; }
 </style>
 </head>
 <body>
-<div class="page">
-
-  <!-- DATE BAR -->
+  <!-- ============ MASTHEAD ============ -->
+  <div class="topbar"><span>EST. 2026 &middot; INDEPENDENT</span><span>ONE PAGE &middot; THE WHOLE WORLD</span><span>PRICE: FREE</span></div>
+  <h1 class="masthead">THE WORLD <span>LEDGER</span></h1>
   <div class="datebar">
     <span>THURSDAY, 19 NOVEMBER 2026</span>
-    <span class="mid">27 STORIES &middot; 7 REGIONS &middot; ONE PAGE</span>
-    <span>EDITION N&ordm; 19</span>
+    <span class="count">27 STORIES &middot; 7 REGIONS</span>
+    <span>THE DAY, IN ONE PAGE</span>
   </div>
 
-  <!-- MASTHEAD -->
-  <div class="masthead">
-    <h1>THE WORLD <span class="red">LEDGER</span></h1>
-    <div class="tag">The whole planet, on one page &mdash; every story that mattered today.</div>
+  <!-- ============ HERO STORIES ============ -->
+  <div class="heroes">
+    <article class="hero">
+      <svg viewBox="0 0 300 62" aria-hidden="true">
+        <rect x="0" y="0" width="300" height="62" fill="#f3ead2"/>
+        <line x1="60" y1="8" x2="60" y2="54" stroke="#14213d" stroke-width="3"/>
+        <line x1="150" y1="8" x2="150" y2="54" stroke="#14213d" stroke-width="3"/>
+        <line x1="240" y1="8" x2="240" y2="54" stroke="#14213d" stroke-width="3"/>
+        <circle cx="60" cy="34" r="17" fill="#c1272d"/>
+        <circle cx="150" cy="34" r="17" fill="#1f4e79"/>
+        <circle cx="240" cy="34" r="17" fill="#f2b705"/>
+        <text x="60" y="39" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">US</text>
+        <text x="150" y="39" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">CN</text>
+        <text x="240" y="39" font-size="13" font-weight="700" fill="#14213d" text-anchor="middle">RU</text>
+      </svg>
+      <div class="kicker">DIPLOMACY &middot; No. 1</div>
+      <h2>First-ever Trump&ndash;Xi&ndash;Putin summit opens in Shenzhen</h2>
+      <p>Three leaders meet face to face for the first time, with trade, Taiwan and Ukraine on the table.</p>
+      <span class="src">REUTERS</span>
+    </article>
+    <article class="hero">
+      <svg viewBox="0 0 300 62" aria-hidden="true">
+        <rect x="0" y="0" width="300" height="62" fill="#e3efe9"/>
+        <line x1="150" y1="6" x2="150" y2="56" stroke="#14213d" stroke-width="3"/>
+        <line x1="90" y1="16" x2="210" y2="16" stroke="#14213d" stroke-width="3"/>
+        <line x1="90" y1="16" x2="72" y2="38" stroke="#14213d" stroke-width="2"/>
+        <line x1="90" y1="16" x2="108" y2="38" stroke="#14213d" stroke-width="2"/>
+        <line x1="210" y1="16" x2="192" y2="38" stroke="#14213d" stroke-width="2"/>
+        <line x1="210" y1="16" x2="228" y2="38" stroke="#14213d" stroke-width="2"/>
+        <path d="M70,40 Q90,52 110,40 Z" fill="#c1272d"/>
+        <path d="M190,40 Q210,52 230,40 Z" fill="#c1272d"/>
+        <circle cx="150" cy="6" r="4" fill="#f2b705"/>
+      </svg>
+      <div class="kicker">JUSTICE &middot; No. 2</div>
+      <h2>The Hague rules on the Rohingya in Gambia v. Myanmar</h2>
+      <p>The world court hands down its long-awaited judgment on Myanmar&rsquo;s treatment of the Rohingya.</p>
+      <span class="src">REUTERS</span>
+    </article>
+    <article class="hero">
+      <svg viewBox="0 0 300 62" aria-hidden="true">
+        <rect x="0" y="0" width="300" height="62" fill="#e8ecf3"/>
+        <path d="M20,50 Q150,-6 280,50" stroke="#14213d" stroke-width="4" fill="none"/>
+        <line x1="70" y1="38" x2="70" y2="56" stroke="#14213d" stroke-width="3"/>
+        <line x1="150" y1="24" x2="150" y2="56" stroke="#14213d" stroke-width="3"/>
+        <line x1="230" y1="38" x2="230" y2="56" stroke="#14213d" stroke-width="3"/>
+        <line x1="10" y1="56" x2="290" y2="56" stroke="#1f7a6d" stroke-width="3"/>
+        <path d="M150,14 l5,8 9,1 -6,6 2,9 -10,-5 -10,5 2,-9 -6,-6 9,-1 Z" fill="#c1272d"/>
+      </svg>
+      <div class="kicker">WAR &middot; No. 3</div>
+      <h2>Kerch Bridge hit a third time</h2>
+      <p>Ukraine strikes the bridge linking Russia to occupied Crimea again, in the war&rsquo;s latest blow to the crossing.</p>
+      <span class="src">REUTERS</span>
+    </article>
   </div>
 
-  <!-- HEADLINE -->
-  <div class="headline">
-    <h2>FIRST-EVER TRUMP&ndash;XI&ndash;PUTIN SUMMIT</h2>
-    <p>Three leaders meet in Shenzhen as war, trade and nukes top the agenda &mdash; and 26 more stories from a day that refused to slow down.</p>
-  </div>
-
-  <div class="grid">
-    <div class="main">
-
-      <!-- HERO TRIO -->
-      <div class="heroes">
-        <div class="hero">
-          <svg viewBox="0 0 190 74">
-            <rect x="0" y="0" width="190" height="74" fill="#14232E"/>
-            <rect x="14" y="10" width="34" height="22" fill="#B22234"/><rect x="14" y="10" width="34" height="3" fill="#fff"/><rect x="14" y="16" width="34" height="3" fill="#fff"/><rect x="14" y="22" width="34" height="3" fill="#fff"/><rect x="14" y="28" width="34" height="3" fill="#fff"/><rect x="14" y="10" width="14" height="12" fill="#3C3B6E"/>
-            <rect x="78" y="10" width="34" height="22" fill="#DE2910"/><circle cx="86" cy="17" r="2.4" fill="#FFDE00"/><circle cx="95" cy="14" r="1.4" fill="#FFDE00"/><circle cx="99" cy="19" r="1.4" fill="#FFDE00"/><circle cx="95" cy="24" r="1.4" fill="#FFDE00"/><circle cx="88" cy="25" r="1.4" fill="#FFDE00"/>
-            <rect x="142" y="10" width="34" height="22" fill="#fff"/><rect x="142" y="17.3" width="34" height="7.4" fill="#0039A6"/><rect x="142" y="24.7" width="34" height="7.3" fill="#D52B1E"/>
-            <circle cx="31" cy="48" r="9" fill="#F2C14E"/><path d="M14 74 Q14 58 31 58 Q48 58 48 74 Z" fill="#F2C14E"/>
-            <circle cx="95" cy="48" r="9" fill="#E8A33D"/><path d="M78 74 Q78 58 95 58 Q112 58 112 74 Z" fill="#E8A33D"/>
-            <circle cx="159" cy="48" r="9" fill="#D8DEE3"/><path d="M142 74 Q142 58 159 58 Q176 58 176 74 Z" fill="#D8DEE3"/>
-            <rect x="8" y="66" width="174" height="3" fill="#F6F1E3"/>
-          </svg>
-          <div class="kicker" style="color:#B3352B">POLITICS &middot; SHENZHEN</div>
-          <h3>Three leaders, one room</h3>
-          <p>Trump, Xi and Putin hold the first-ever three-way summit &mdash; one hour for nuclear arms, Ukraine and Iran.</p>
-          <div class="src">REUTERS</div>
-        </div>
-        <div class="hero">
-          <svg viewBox="0 0 190 74">
-            <rect x="0" y="0" width="190" height="74" fill="#DCE9EC"/>
-            <path d="M0 52 L190 52 L190 74 L0 74 Z" fill="#2B5E8C"/>
-            <path d="M0 58 Q24 54 48 58 T96 58 T144 58 T190 58 L190 74 L0 74 Z" fill="#1E4A70"/>
-            <rect x="20" y="46" width="150" height="5" fill="#14232E"/>
-            <rect x="52" y="20" width="5" height="28" fill="#14232E"/><rect x="133" y="20" width="5" height="28" fill="#14232E"/>
-            <path d="M52 22 L95 40 L133 22" stroke="#14232E" stroke-width="1.6" fill="none"/>
-            <path d="M95 40 L95 46" stroke="#14232E" stroke-width="1.6"/>
-            <path d="M95 34 l3 -8 3 8 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 Z" fill="#B3352B"/>
-            <circle cx="95" cy="34" r="12" fill="none" stroke="#B3352B" stroke-width="1.4" stroke-dasharray="3 3"/>
-          </svg>
-          <div class="kicker" style="color:#8C2F1B">CONFLICT &middot; CRIMEA</div>
-          <h3>The bridge, hit again</h3>
-          <p>Ukraine strikes the Kerch Bridge for the third time in a week; traffic is halted as Russia assesses damage to the railway span.</p>
-          <div class="src">REUTERS</div>
-        </div>
-        <div class="hero">
-          <svg viewBox="0 0 190 74">
-            <rect x="0" y="0" width="190" height="74" fill="#EDE7D3"/>
-            <path d="M30 26 L95 8 L160 26 Z" fill="#14232E"/>
-            <rect x="40" y="28" width="8" height="26" fill="#14232E"/><rect x="70" y="28" width="8" height="26" fill="#14232E"/><rect x="100" y="28" width="8" height="26" fill="#14232E"/><rect x="130" y="28" width="8" height="26" fill="#14232E"/><rect x="34" y="54" width="122" height="6" fill="#14232E"/>
-            <circle cx="95" cy="18" r="4" fill="#B3352B"/>
-            <rect x="34" y="62" width="122" height="4" fill="#B3352B"/>
-          </svg>
-          <div class="kicker" style="color:#6A4C93">LAW &middot; THE HAGUE</div>
-          <h3>Justice day in The Hague</h3>
-          <p>The world court rules today in Gambia v. Myanmar &mdash; the first-ever verdict in a case of one state accusing another of genocide.</p>
-          <div class="src">REUTERS</div>
-        </div>
-      </div>
-
-      <!-- PULL NUMBERS -->
-      <div class="pulls">
-        <div class="pull"><div class="num">17<span class="unit">M</span></div><div class="lbl">copies of <b>GTA VI</b> sold as the game launches worldwide &mdash; REUTERS</div></div>
-        <div class="pull"><div class="num">46,701</div><div class="lbl">people evacuated in <b>Odisha</b> as Cyclone Akvan closes in &mdash; IMD</div></div>
-        <div class="pull"><div class="num">$81.3<span class="unit">BN</span></div><div class="lbl"><b>Anthropic&rsquo;s IPO</b> &mdash; the biggest stock-market debut ever &mdash; REUTERS</div></div>
-        <div class="pull markets"><div class="num" style="font-size:15px; padding-top:4px;">MARKETS</div>
-          <div class="bar-row"><span class="bar-lbl">Brent</span><span class="bar" style="width:52px"></span><span class="bar-val">$92.12 &middot; +0.18%</span></div>
-          <div class="bar-row"><span class="bar-lbl">WTI</span><span class="bar neg" style="width:30px"></span><span class="bar-val">&minus;3.2% prev. session</span></div>
-          <div class="lbl" style="margin-top:5px;">Oil steadies as Gulf shipments return near pre-war levels. &mdash; REUTERS</div>
-        </div>
-      </div>
-
-      <!-- MAP -->
-      <div class="mapbox">
-        <div class="maphead"><span>WHERE IT HAPPENED &mdash; THE 11 MAIN STORIES, MAPPED</span><span>dots numbered in list order</span></div>
-        <svg viewBox="0 0 640 158">
-<circle cx="286.7" cy="4.2" r="1.8" fill="#8A9A90"/>
-<circle cx="300.0" cy="4.2" r="1.8" fill="#8A9A90"/>
-<circle cx="313.3" cy="4.2" r="1.8" fill="#8A9A90"/>
-<circle cx="273.3" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="286.7" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="300.0" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="313.3" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="406.7" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="420.0" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="433.3" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="446.7" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="460.0" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="473.3" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="486.7" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="500.0" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="513.3" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="526.7" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="540.0" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="593.3" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="606.7" cy="12.5" r="1.8" fill="#8A9A90"/>
-<circle cx="33.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="46.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="60.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="73.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="86.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="113.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="126.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="140.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="193.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="206.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="220.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="286.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="300.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="313.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="393.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="406.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="420.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="433.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="446.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="460.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="473.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="486.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="500.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="513.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="526.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="540.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="593.3" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="606.7" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="620.0" cy="20.8" r="1.8" fill="#8A9A90"/>
-<circle cx="33.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="46.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="60.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="73.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="86.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="113.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="126.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="140.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="193.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="206.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="220.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="233.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="300.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="380.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="393.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="406.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="420.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="433.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="446.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="460.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="473.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="486.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="500.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="513.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="526.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="540.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="593.3" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="606.7" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="620.0" cy="29.1" r="1.8" fill="#8A9A90"/>
-<circle cx="46.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="60.0" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="73.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="113.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="126.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="140.0" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="193.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="206.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="220.0" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="233.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="246.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="313.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="380.0" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="393.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="406.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="420.0" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="433.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="446.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="460.0" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="473.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="486.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="500.0" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="513.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="526.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="540.0" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="593.3" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="606.7" cy="37.4" r="1.8" fill="#8A9A90"/>
-<circle cx="100.0" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="113.3" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="126.7" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="140.0" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="193.3" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="206.7" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="220.0" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="233.3" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="326.7" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="380.0" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="393.3" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="406.7" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="420.0" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="433.3" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="446.7" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="460.0" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="473.3" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="486.7" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="500.0" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="513.3" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="526.7" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="540.0" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="593.3" cy="45.7" r="1.8" fill="#8A9A90"/>
-<circle cx="113.3" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="126.7" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="140.0" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="193.3" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="206.7" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="220.0" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="313.3" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="326.7" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="380.0" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="393.3" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="420.0" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="433.3" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="446.7" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="460.0" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="473.3" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="486.7" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="500.0" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="513.3" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="526.7" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="540.0" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="593.3" cy="54.1" r="1.8" fill="#8A9A90"/>
-<circle cx="126.7" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="140.0" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="193.3" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="206.7" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="313.3" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="326.7" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="380.0" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="393.3" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="406.7" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="420.0" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="433.3" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="446.7" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="460.0" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="473.3" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="486.7" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="500.0" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="513.3" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="526.7" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="540.0" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="62.4" r="1.8" fill="#8A9A90"/>
-<circle cx="100.0" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="113.3" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="126.7" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="140.0" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="313.3" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="326.7" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="380.0" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="393.3" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="406.7" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="420.0" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="433.3" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="446.7" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="486.7" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="500.0" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="513.3" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="540.0" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="70.7" r="1.8" fill="#8A9A90"/>
-<circle cx="113.3" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="126.7" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="140.0" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="300.0" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="313.3" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="326.7" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="433.3" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="446.7" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="486.7" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="500.0" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="513.3" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="540.0" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="79.0" r="1.8" fill="#8A9A90"/>
-<circle cx="113.3" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="126.7" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="313.3" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="326.7" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="380.0" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="486.7" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="500.0" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="540.0" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="87.3" r="1.8" fill="#8A9A90"/>
-<circle cx="140.0" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="326.7" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="380.0" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="393.3" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="540.0" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="95.6" r="1.8" fill="#8A9A90"/>
-<circle cx="140.0" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="193.3" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="380.0" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="393.3" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="593.3" cy="103.9" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="193.3" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="380.0" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="393.3" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="593.3" cy="112.3" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="193.3" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="380.0" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="406.7" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="593.3" cy="120.6" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="128.9" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="128.9" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="128.9" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="128.9" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="128.9" r="1.8" fill="#8A9A90"/>
-<circle cx="366.7" cy="128.9" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="128.9" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="128.9" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="128.9" r="1.8" fill="#8A9A90"/>
-<circle cx="593.3" cy="128.9" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="137.2" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="137.2" r="1.8" fill="#8A9A90"/>
-<circle cx="180.0" cy="137.2" r="1.8" fill="#8A9A90"/>
-<circle cx="340.0" cy="137.2" r="1.8" fill="#8A9A90"/>
-<circle cx="353.3" cy="137.2" r="1.8" fill="#8A9A90"/>
-<circle cx="553.3" cy="137.2" r="1.8" fill="#8A9A90"/>
-<circle cx="566.7" cy="137.2" r="1.8" fill="#8A9A90"/>
-<circle cx="580.0" cy="137.2" r="1.8" fill="#8A9A90"/>
-<circle cx="606.7" cy="137.2" r="1.8" fill="#8A9A90"/>
-<circle cx="620.0" cy="137.2" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="145.5" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="145.5" r="1.8" fill="#8A9A90"/>
-<circle cx="606.7" cy="145.5" r="1.8" fill="#8A9A90"/>
-<circle cx="153.3" cy="153.8" r="1.8" fill="#8A9A90"/>
-<circle cx="166.7" cy="153.8" r="1.8" fill="#8A9A90"/>
-<g><circle cx="522.8" cy="72.6" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="522.8" y="72.6" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">1</text></g>
-<g><circle cx="327.6" cy="40.7" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="327.6" y="40.7" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">2</text></g>
-<g><circle cx="384.9" cy="48.0" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="384.9" y="48.0" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">3</text></g>
-<g><circle cx="471.3" cy="74.9" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="471.3" y="74.9" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">4</text></g>
-<g><circle cx="630.8" cy="141.1" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="630.8" y="141.1" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">5</text></g>
-<g><circle cx="102.4" cy="56.1" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="102.4" y="56.1" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">6</text></g>
-<g><circle cx="305.6" cy="28.4" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="305.6" y="28.4" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">7</text></g>
-<g><circle cx="377.8" cy="80.0" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="377.8" y="80.0" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">8</text></g>
-<g><circle cx="403.0" cy="70.2" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="403.0" y="70.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">9</text></g>
-<g><circle cx="568.4" cy="58.4" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="568.4" y="58.4" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">10</text></g>
-<g><circle cx="585.1" cy="134.7" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="585.1" y="134.7" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">11</text></g>
-        </svg>
-      </div>
-
-      <!-- NUMBERED LIST -->
-      <div class="list">
-        <div class="listcol">
-          <div class="item"><div class="num-badge">1</div><div class="txt"><div class="title">First-ever Trump&ndash;Xi&ndash;Putin summit <span class="cat" style="color:#B3352B">POLITICS</span></div><div class="body">One hour in Shenzhen for nuclear arms, Ukraine and Iran &mdash; agendas differ, no breakthrough expected. <span class="s">REUTERS</span></div></div></div>
-          <div class="item"><div class="num-badge">2</div><div class="txt"><div class="title">The Hague rules on the Rohingya <span class="cat" style="color:#6A4C93">LAW</span></div><div class="body">The world court delivers its verdict in Gambia v. Myanmar, filed in 2019 &mdash; a first for a state genocide case. <span class="s">REUTERS</span></div></div></div>
-          <div class="item"><div class="num-badge">3</div><div class="txt"><div class="title">Kerch Bridge hit a third time <span class="cat" style="color:#8C2F1B">CONFLICT</span></div><div class="body">Overnight strike halts traffic; the railway section is reported hit as damage is assessed. <span class="s">REUTERS</span></div></div></div>
-          <div class="item"><div class="num-badge">4</div><div class="txt"><div class="title">Cyclone Akvan bears down on India <span class="cat" style="color:#0E6E6A">DISASTER</span></div><div class="body">Severe storm off Odisha; 46,701 evacuated, landfall due noon Friday with winds to 110 kmph. <span class="s">IMD</span></div></div></div>
-          <div class="item"><div class="num-badge">5</div><div class="txt"><div class="title">GTA VI goes on sale worldwide <span class="cat" style="color:#2B5E8C">CULTURE</span></div><div class="body">Rollout begins at midnight in New Zealand; 17m copies sold, 99/100 on Metacritic from 140+ reviews. <span class="s">REUTERS</span></div></div></div>
-          <div class="item"><div class="num-badge">6</div><div class="txt"><div class="title">Anthropic lists as ANT <span class="cat" style="color:#A86A12">ECONOMY</span></div><div class="body">Claude-maker debuts on Nasdaq after pricing at $83 &mdash; an $81.3bn sale valuing it near $1.5tn. <span class="s">REUTERS</span></div></div></div>
-        </div>
-        <div class="listcol">
-          <div class="item"><div class="num-badge">7</div><div class="txt"><div class="title">Brent steadies at $92.12 <span class="cat" style="color:#A86A12">ECONOMY</span></div><div class="body">Crude edges up 0.18% as Hormuz shipments return near pre-war levels; WTI fell 3.2% a day earlier. <span class="s">REUTERS</span></div></div></div>
-          <div class="item"><div class="num-badge">8</div><div class="txt"><div class="title">Sudan accuses Ethiopia and UAE <span class="cat" style="color:#8C2F1B">CONFLICT</span></div><div class="body">Khartoum alleges four drone attacks launched from Ethiopia with UAE-supplied drones; envoy recalled. <span class="s">AL JAZEERA</span></div></div></div>
-          <div class="item"><div class="num-badge">9</div><div class="txt"><div class="title">Missile threat over Riyadh <span class="cat" style="color:#8C2F1B">CONFLICT</span></div><div class="body">A Houthi missile towards the Saudi capital is dealt with after a boom shakes the city; debris falls. <span class="s">REUTERS</span></div></div></div>
-          <div class="item"><div class="num-badge">10</div><div class="txt"><div class="title">India&ndash;Japan hold 2+2 talks <span class="cat" style="color:#B3352B">POLITICS</span></div><div class="body">Foreign and defence ministers meet in Tokyo on defence tech, maritime security and the Indo-Pacific. <span class="s">PTI</span></div></div></div>
-          <div class="item"><div class="num-badge">11</div><div class="txt"><div class="title">Australia&rsquo;s jobless rate jumps <span class="cat" style="color:#A86A12">ECONOMY</span></div><div class="body">Unemployment hits 4.9%, a five-year high, as 43,500 jobs vanish in October &mdash; far worse than forecast. <span class="s">ABS</span></div></div></div>
-          <div class="item"><div class="num-badge" style="background:#B3352B">&#10003;</div><div class="txt"><div class="title">How to read this page</div><div class="body">Every number above comes from a named source. Main stories 1&ndash;11 are mapped; 12&ndash;27 are in the sidebar. <span class="s">THE WORLD LEDGER</span></div></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SIDEBAR -->
-    <div class="side">
-      <div class="sidebar">
-        <div class="sidehead"><h4>ALSO ON 19 NOV 2026</h4><p>16 MORE STORIES &middot; IN BRIEF</p></div>
-        <div class="side-items">
-          <div class="sitem"><div class="n">12</div><div class="t"><b>COP31, final hours.</b> 21 issues still unresolved in Antalya as fresh draft texts land Thursday. <span class="s">UN NEWS</span></div></div>
-          <div class="sitem"><div class="n">13</div><div class="t"><b>Voyager 1, one light-day out.</b> NASA confirms the probe is 16.1bn miles away &mdash; a first for any human object. <span class="s">NASA</span></div></div>
-          <div class="sitem"><div class="n">14</div><div class="t"><b>Gaza.</b> Israeli tanks roll past the Yellow Line onto the main north&ndash;south road; families flee. <span class="s">REUTERS</span></div></div>
-          <div class="sitem"><div class="n">15</div><div class="t"><b>Brazil.</b> Lula signs the decree for a 5&times;2 workweek, starting 16 December. <span class="s">PARTICLE</span></div></div>
-          <div class="sitem"><div class="n">16</div><div class="t"><b>One in four women</b> worldwide cannot refuse sex in marriage, a UN report finds. <span class="s">GUARDIAN</span></div></div>
-          <div class="sitem"><div class="n">17</div><div class="t"><b>Spain.</b> Doctors march in some 20 cities as their strike enters its fourth day. <span class="s">CATALUNYA INFO</span></div></div>
-          <div class="sitem"><div class="n">18</div><div class="t"><b>Canada.</b> Carney, in Shenzhen: a US trade deal is &ldquo;possible&rdquo; but &ldquo;not there yet&rdquo;. <span class="s">CANADIAN PRESS</span></div></div>
-          <div class="sitem"><div class="n">19</div><div class="t"><b>EU&ndash;Indonesia.</b> EU governments approve a trade pact to offset US tariffs. <span class="s">EU COUNCIL</span></div></div>
-          <div class="sitem"><div class="n">20</div><div class="t"><b>Sudan.</b> A senior RSF commander defects as the war grinds on. <span class="s">ANADOLU</span></div></div>
-          <div class="sitem"><div class="n">21</div><div class="t"><b>Honduras.</b> Twelve killed; the Yoro region is declared high-risk territory. <span class="s">SABC</span></div></div>
-          <div class="sitem"><div class="n">22</div><div class="t"><b>Ecuador.</b> Fishermen sue over a drone strike near the Gal&aacute;pagos. <span class="s">NEWS MEDIA HOUSE</span></div></div>
-          <div class="sitem"><div class="n">23</div><div class="t"><b>Cricket.</b> South Africa dominate Bangladesh on day one of the opening Test. <span class="s">SABC</span></div></div>
-          <div class="sitem"><div class="n">24</div><div class="t"><b>Tennis.</b> Ash Barty is inducted into the hall of fame. <span class="s">ABC NEWS</span></div></div>
-          <div class="sitem"><div class="n">25</div><div class="t"><b>Kenya.</b> Drought empties dairy shelves; milk hits 100 shillings a packet in Nairobi. <span class="s">AL JAZEERA</span></div></div>
-          <div class="sitem"><div class="n">26</div><div class="t"><b>Florida.</b> NTSB: the helicopter that crashed in Biscayne Bay flew &ldquo;extremely&rdquo; low. <span class="s">AP</span></div></div>
-          <div class="sitem"><div class="n">27</div><div class="t"><b>Somalia.</b> Federal standoff deepens as two states suspend cooperation with Mogadishu. <span class="s">AL JAZEERA</span></div></div>
-        </div>
-      </div>
+  <!-- ============ PULL NUMBERS + MARKETS ============ -->
+  <div class="stats">
+    <div class="stat"><div class="num">17M</div><div class="lbl">GTA VI COPIES SOLD</div><div class="who">REUTERS &middot; 99/100 METACRITIC</div></div>
+    <div class="stat"><div class="num">46,701</div><div class="lbl">ODISHA EVACUATIONS</div><div class="who">IMD &middot; INDIA</div></div>
+    <div class="stat"><div class="num">$81.3BN</div><div class="lbl">ANTHROPIC IPO &mdash; BIGGEST EVER</div><div class="who">REUTERS &middot; NYSE</div></div>
+    <div class="markets">
+      <div class="mhead">MARKETS</div>
+      <div class="mrow">BRENT $92.12 <span class="up">+0.18%</span></div>
+      <div class="msub">WTI &minus;3.2% in the previous session. &mdash; REUTERS</div>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    <div><b>SOURCES</b> &mdash; Reuters &middot; AP &middot; Al Jazeera &middot; IMD &middot; PTI &middot; ABS &middot; NASA &middot; UN News &middot; The Guardian &middot; Canadian Press &middot; Anadolu &middot; SABC &middot; ABC News &middot; EU Council &middot; Catalunya Info &middot; Particle News &middot; News Media House. Every claim on this page is sourced; figures are as reported on 19 November 2026.</div>
-    <div class="right"><b>THE WORLD LEDGER</b><br>19 NOV 2026 &middot; ONE PAGE<br>27 STORIES &middot; 7 REGIONS</div>
+  <!-- ============ WORLD MAP ============ -->
+  <section class="mapwrap">
+    <div class="maphead">WHERE IT HAPPENED <span>&mdash; numbered dots match the stories below</span></div>
+    <div class="maprow">
+    <svg class="worldmap" viewBox="0 0 640 168" aria-hidden="true">
+      <rect x="0" y="0" width="640" height="168" fill="#dcebe4"/>
+      <path d="M28,16 L120,10 L168,28 L178,50 L150,56 L158,76 L132,86 L118,76 L96,90 L60,86 L38,64 L22,42 Z" fill="#1f7a6d"/>
+      <path d="M150,4 L185,2 L190,14 L160,18 Z" fill="#1f7a6d"/>
+      <path d="M168,94 L205,90 L222,108 L210,138 L192,166 L176,148 L162,116 Z" fill="#1f7a6d"/>
+      <path d="M300,26 L330,16 L358,24 L362,42 L340,50 L322,64 L302,56 L292,38 Z" fill="#1f7a6d"/>
+      <path d="M306,72 L352,68 L378,86 L372,118 L348,150 L322,136 L306,102 Z" fill="#1f7a6d"/>
+      <path d="M366,20 L470,12 L560,28 L585,50 L560,70 L540,94 L500,106 L470,94 L440,102 L410,86 L392,62 L366,48 Z" fill="#1f7a6d"/>
+      <path d="M520,126 L575,122 L590,140 L560,160 L528,150 Z" fill="#1f7a6d"/>
+      <g font-family="Arial, sans-serif" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">
+        <circle cx="616" cy="154" r="10" fill="#c1272d"/><text x="616" y="158">5</text>
+        <circle cx="40" cy="56" r="10" fill="#c1272d"/><text x="40" y="60">6</text>
+        <circle cx="308" cy="24" r="10" fill="#c1272d"/><text x="308" y="28">7</text>
+        <circle cx="330" cy="42" r="10" fill="#c1272d"/><text x="330" y="46">2</text>
+        <circle cx="392" cy="44" r="10" fill="#c1272d"/><text x="392" y="48">3</text>
+        <circle cx="348" cy="106" r="10" fill="#c1272d"/><text x="348" y="110">8</text>
+        <circle cx="388" cy="80" r="10" fill="#c1272d"/><text x="388" y="84">9</text>
+        <circle cx="452" cy="84" r="10" fill="#c1272d"/><text x="452" y="88">4</text>
+        <circle cx="505" cy="72" r="10" fill="#c1272d"/><text x="505" y="76">1</text>
+        <circle cx="548" cy="60" r="10" fill="#c1272d"/><text x="548" y="64">10</text>
+        <circle cx="558" cy="146" r="10" fill="#c1272d"/><text x="558" y="150">11</text>
+      </g>
+    </svg>
+    <aside class="regions">
+      <h3>7 REGIONS COVERED</h3>
+      <div><span class="chip" style="background:#c1272d"></span>North America</div>
+      <div><span class="chip" style="background:#1f7a6d"></span>South America</div>
+      <div><span class="chip" style="background:#f2b705"></span>Europe</div>
+      <div><span class="chip" style="background:#1f4e79"></span>Africa</div>
+      <div><span class="chip" style="background:#c1272d"></span>Middle East</div>
+      <div><span class="chip" style="background:#1f7a6d"></span>Asia</div>
+      <div><span class="chip" style="background:#f2b705"></span>Oceania</div>
+      <p class="rnote">Dots 1&ndash;11 match the numbered stories below.</p>
+    </aside>
+    </div>
+  </section>
+
+  <style>
+    /* ---------- map ---------- */
+    .mapwrap { margin-bottom: 8px; }
+    .maphead {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      border-bottom: 2px solid #14213d; padding-bottom: 3px; margin-bottom: 5px;
+    }
+    .maphead span { font-weight: 400; letter-spacing: 0; color: #5a6478; }
+    .maprow { display: flex; gap: 12px; }
+    .worldmap { width: 640px; height: 168px; display: block; flex: none; }
+    .regions {
+      flex: 1; background: #fffdf6; border: 1px solid #d8cfb8;
+      padding: 7px 10px; height: 168px; overflow: hidden;
+    }
+    .regions h3 { font-size: 10px; letter-spacing: 2px; color: #c1272d; margin-bottom: 4px; }
+    .regions div { font-size: 10px; line-height: 1.45; }
+    .regions .chip { display: inline-block; width: 8px; height: 8px; margin-right: 5px; }
+    .regions .rnote { font-size: 9px; line-height: 1.3; color: #5a6478; margin-top: 5px; }
+    /* ---------- lower: list + sidebar ---------- */
+    .lower { display: flex; gap: 12px; }
+    .list { flex: 1; min-width: 0; }
+    .list h3, .sidebar h3 {
+      font-size: 11px; letter-spacing: 2px;
+      border-bottom: 2px solid #14213d; padding-bottom: 3px; margin-bottom: 3px;
+    }
+    .item { display: flex; gap: 7px; padding: 2.5px 0; border-bottom: 1px solid #e2d9c2; }
+    .item .n {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 15px; font-weight: 700; color: #c1272d; min-width: 19px; flex: none;
+    }
+    .item .t { font-size: 11px; font-weight: 700; line-height: 1.2; }
+    .item .c { font-size: 10px; line-height: 1.25; color: #333c4e; }
+    .item .o { font-size: 8px; font-weight: 700; color: #1f7a6d; letter-spacing: 1px; }
+    .sidebar {
+      width: 308px; flex: none; background: #fffdf6;
+      border: 1px solid #d8cfb8; padding: 7px 9px 5px; height: 378px; overflow: hidden;
+    }
+    .sidebar h3 { color: #c1272d; border-bottom-color: #c1272d; }
+    .side-item { font-size: 10px; line-height: 1.3; padding: 2.4px 0; border-bottom: 1px solid #eee6d2; }
+    .side-item b { color: #14213d; }
+    .side-item .o { font-size: 8px; font-weight: 700; color: #1f7a6d; }
+    /* ---------- footer ---------- */
+    footer {
+      font-size: 8.5px; color: #5a6478; line-height: 1.45;
+      margin-top: 7px; border-top: 1px solid #14213d; padding-top: 4px;
+    }
+    footer b { color: #14213d; letter-spacing: 1px; }
+  </style>
+
+  <!-- ============ NUMBERED LIST 1-11 + SIDEBAR 12-27 ============ -->
+  <div class="lower">
+    <section class="list">
+      <h3>THE DAY IN FULL &mdash; 1 TO 11</h3>
+      <div class="item"><div class="n">1</div><div><div class="t">First-ever Trump&ndash;Xi&ndash;Putin summit, Shenzhen <span class="o">REUTERS</span></div><div class="c">Three leaders meet face to face for the first time; trade, Taiwan and Ukraine on the table.</div></div></div>
+      <div class="item"><div class="n">2</div><div><div class="t">The Hague rules on the Rohingya <span class="o">REUTERS</span></div><div class="c">World court judgment in Gambia v. Myanmar on Myanmar&rsquo;s treatment of the Rohingya.</div></div></div>
+      <div class="item"><div class="n">3</div><div><div class="t">Kerch Bridge hit a third time <span class="o">REUTERS</span></div><div class="c">Strike on the bridge linking Russia to occupied Crimea, the latest blow to the crossing.</div></div></div>
+      <div class="item"><div class="n">4</div><div><div class="t">Cyclone Akvan: Odisha evacuates 46,701 <span class="o">IMD</span></div><div class="c">Mass evacuations in India as the cyclone nears the Odisha coast.</div></div></div>
+      <div class="item"><div class="n">5</div><div><div class="t">GTA VI launches worldwide, 17m sold <span class="o">REUTERS</span></div><div class="c">Record-breaking launch day; 99/100 on Metacritic.</div></div></div>
+      <div class="item"><div class="n">6</div><div><div class="t">Anthropic lists as ANT, $81.3bn <span class="o">REUTERS</span></div><div class="c">Biggest IPO ever as the AI lab debuts on the New York Stock Exchange.</div></div></div>
+      <div class="item"><div class="n">7</div><div><div class="t">Brent steadies at $92.12 <span class="o">REUTERS</span></div><div class="c">Oil holds after a choppy session; WTI fell 3.2% the session before.</div></div></div>
+      <div class="item"><div class="n">8</div><div><div class="t">Sudan accuses Ethiopia &amp; UAE of drone attacks <span class="o">AL JAZEERA</span></div><div class="c">Khartoum blames its neighbours for drone strikes as the war grinds on.</div></div></div>
+      <div class="item"><div class="n">9</div><div><div class="t">Houthi missile threat over Riyadh <span class="o">REUTERS</span></div><div class="c">Rebels warn of strikes on the Saudi capital amid the regional standoff.</div></div></div>
+      <div class="item"><div class="n">10</div><div><div class="t">India&ndash;Japan 2+2 talks, Tokyo <span class="o">PTI</span></div><div class="c">Foreign and defence ministers meet to deepen the security partnership.</div></div></div>
+      <div class="item"><div class="n">11</div><div><div class="t">Australia jobless rate jumps to 4.9% <span class="o">ABS</span></div><div class="c">Unemployment rises more than expected, cooling rate-hike bets.</div></div></div>
+    </section>
+    <aside class="sidebar">
+      <h3>ALSO ON 19 NOV 2026</h3>
+      <div class="side-item"><b>12</b> COP31 final hours, 21 issues unresolved <span class="o">UN NEWS</span></div>
+      <div class="side-item"><b>13</b> Voyager 1 one light-day out (16.1bn miles) <span class="o">NASA</span></div>
+      <div class="side-item"><b>14</b> Gaza: tanks past the Yellow Line <span class="o">REUTERS</span></div>
+      <div class="side-item"><b>15</b> Brazil: Lula signs 5&times;2 workweek decree <span class="o">PARTICLE NEWS</span></div>
+      <div class="side-item"><b>16</b> UNFPA: 1 in 4 women can&rsquo;t refuse marital sex <span class="o">THE GUARDIAN</span></div>
+      <div class="side-item"><b>17</b> Spain: doctors march in ~20 cities <span class="o">CATALUNYA INFO</span></div>
+      <div class="side-item"><b>18</b> Carney: US deal &ldquo;possible but not there yet&rdquo; <span class="o">CANADIAN PRESS</span></div>
+      <div class="side-item"><b>19</b> EU&ndash;Indonesia trade pact approved <span class="o">EU COUNCIL</span></div>
+      <div class="side-item"><b>20</b> Sudan: senior RSF commander defects <span class="o">ANADOLU</span></div>
+      <div class="side-item"><b>21</b> Honduras: 12 killed, Yoro high-risk <span class="o">SABC</span></div>
+      <div class="side-item"><b>22</b> Ecuador: fishermen sue over Gal&aacute;pagos drone strike <span class="o">NEWS MEDIA HOUSE</span></div>
+      <div class="side-item"><b>23</b> Cricket: South Africa dominate Bangladesh <span class="o">SABC</span></div>
+      <div class="side-item"><b>24</b> Tennis: Ash Barty hall of fame <span class="o">ABC NEWS</span></div>
+      <div class="side-item"><b>25</b> Kenya: drought empties dairy shelves <span class="o">AL JAZEERA</span></div>
+      <div class="side-item"><b>26</b> NTSB: Biscayne Bay helicopter flew &ldquo;extremely&rdquo; low <span class="o">AP</span></div>
+      <div class="side-item"><b>27</b> Somalia: federal standoff deepens <span class="o">AL JAZEERA</span></div>
+    </aside>
   </div>
 
-</div>
-<script>window.__shotReady = true;</script>
+  <!-- ============ SOURCES FOOTER ============ -->
+  <footer><b>SOURCES:</b> REUTERS &middot; IMD &middot; AL JAZEERA &middot; PTI &middot; ABS &middot; UN NEWS &middot; NASA &middot; PARTICLE NEWS &middot; THE GUARDIAN &middot; CATALUNYA INFO &middot; CANADIAN PRESS &middot; EU COUNCIL &middot; ANADOLU &middot; SABC &middot; NEWS MEDIA HOUSE &middot; ABC NEWS &middot; AP &mdash; Every story verified against a named outlet on 19 November 2026. Headlines shortened for print. THE WORLD LEDGER is a one-page summary of the day&rsquo;s world news.</footer>
 </body>
 </html>
