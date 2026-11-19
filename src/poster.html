@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The World Ledger — 19 November 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1024px; height: 1024px; overflow: hidden; }
+  body { background: #F6F1E3; color: #14232E; font-family: Arial, Helvetica, sans-serif; }
+  .page { width: 1024px; height: 1024px; padding: 16px 24px 8px; display: flex; flex-direction: column; }
+
+  /* ============ DATE BAR ============ */
+  .datebar { border-top: 3px solid #14232E; border-bottom: 1px solid #14232E; padding: 5px 2px; display: flex; justify-content: space-between; font-size: 11px; font-weight: bold; letter-spacing: 2px; }
+  .datebar .mid { color: #B3352B; }
+
+  /* ============ MASTHEAD ============ */
+  .masthead { text-align: center; padding: 7px 0 5px; }
+  .masthead h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 56px; line-height: 1; letter-spacing: 6px; font-weight: 900; }
+  .masthead h1 .red { color: #B3352B; }
+  .masthead .tag { font-family: Georgia, serif; font-style: italic; font-size: 13px; color: #3D4A55; margin-top: 3px; letter-spacing: 0.5px; }
+
+  /* ============ HEADLINE ============ */
+  .headline { border-top: 1px solid #14232E; border-bottom: 3px double #14232E; padding: 6px 2px 7px; text-align: center; }
+  .headline h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 29px; line-height: 1.05; font-weight: 900; letter-spacing: 0.5px; }
+  .headline p { font-size: 12.5px; color: #3D4A55; margin-top: 4px; }
+
+  /* ============ MAIN GRID ============ */
+  .grid { display: flex; gap: 18px; flex: 1; margin-top: 10px; min-height: 0; }
+  .main { width: 652px; display: flex; flex-direction: column; min-height: 0; }
+  .side { width: 296px; display: flex; flex-direction: column; min-height: 0; }
+
+  /* ============ HERO TRIO ============ */
+  .heroes { display: flex; gap: 12px; }
+  .hero { flex: 1; background: #FFFDF6; border: 1px solid #14232E; padding: 8px 9px 6px; display: flex; flex-direction: column; }
+  .hero svg { width: 100%; height: 50px; display: block; }
+  .kicker { font-size: 9px; font-weight: bold; letter-spacing: 1.5px; margin-top: 5px; }
+  .hero h3 { font-family: Georgia, serif; font-size: 14.5px; line-height: 1.15; font-weight: 900; margin-top: 3px; }
+  .hero p { font-size: 10.5px; line-height: 1.35; margin-top: 4px; flex: 1; }
+  .src { font-size: 8.5px; font-weight: bold; letter-spacing: 1px; color: #6B7680; margin-top: 5px; }
+
+  /* ============ PULL NUMBERS ============ */
+  .pulls { display: flex; gap: 12px; margin-top: 7px; }
+  .pull { flex: 1; background: #14232E; color: #F6F1E3; padding: 6px 10px 5px; }
+  .pull .num { font-family: Georgia, serif; font-size: 24px; font-weight: 900; line-height: 1; }
+  .pull .num .unit { font-size: 15px; }
+  .pull .lbl { font-size: 9px; line-height: 1.3; margin-top: 3px; color: #D8DEE3; }
+  .pull .lbl b { color: #F2C14E; }
+  .pull.markets { background: #FFFDF6; color: #14232E; border: 1px solid #14232E; }
+  .pull.markets .lbl { color: #3D4A55; }
+  .bar-row { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 9.5px; font-weight: bold; }
+  .bar { height: 8px; background: #0E6E6A; }
+  .bar.neg { background: #B3352B; }
+  .bar-lbl { width: 34px; flex: none; }
+  .bar-val { flex: none; }
+
+  /* ============ MAP ============ */
+  .mapbox { margin-top: 7px; border: 1px solid #14232E; background: #EDE7D3; padding: 5px 8px 3px; }
+  .mapbox .maphead { display: flex; justify-content: space-between; font-size: 10px; font-weight: bold; letter-spacing: 1.5px; padding: 0 2px 4px; }
+  .mapbox .maphead span:last-child { color: #6B7680; font-weight: normal; letter-spacing: 0.5px; }
+  .mapbox svg { width: 100%; height: auto; display: block; }
+
+  /* ============ NUMBERED LIST ============ */
+  .list { display: flex; gap: 14px; margin-top: 7px; flex: 1; }
+  .listcol { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .item { display: flex; gap: 7px; }
+  .num-badge { flex: none; width: 20px; height: 20px; border-radius: 50%; background: #14232E; color: #F6F1E3; font-size: 11px; font-weight: bold; text-align: center; line-height: 20px; margin-top: 1px; }
+  .item .txt { min-width: 0; }
+  .item .title { font-size: 12px; font-weight: bold; line-height: 1.15; }
+  .item .title .cat { font-size: 8.5px; letter-spacing: 1px; }
+  .item .body { font-size: 10px; line-height: 1.28; color: #2A3742; margin-top: 1px; }
+  .item .body .s { font-size: 8.5px; font-weight: bold; color: #6B7680; letter-spacing: 0.5px; }
+
+  /* ============ SIDEBAR ============ */
+  .sidebar { border: 1px solid #14232E; background: #FFFDF6; flex: 1; display: flex; flex-direction: column; padding: 8px 10px 6px; }
+  .sidehead { border-bottom: 2px solid #B3352B; padding-bottom: 5px; }
+  .sidehead h4 { font-family: Georgia, serif; font-size: 16px; font-weight: 900; letter-spacing: 0.5px; }
+  .sidehead p { font-size: 9.5px; color: #6B7680; margin-top: 2px; letter-spacing: 1px; }
+  .side-items { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding-top: 2px; }
+  .sitem { display: flex; gap: 7px; padding: 4px 0; border-bottom: 1px dotted #B9B2A0; }
+  .sitem:last-child { border-bottom: none; }
+  .sitem .n { flex: none; font-family: Georgia, serif; font-size: 13px; font-weight: 900; color: #B3352B; width: 18px; }
+  .sitem .t { font-size: 10.5px; line-height: 1.32; }
+  .sitem .t b { font-size: 10.5px; }
+  .sitem .t .s { font-size: 8.5px; font-weight: bold; color: #6B7680; letter-spacing: 0.5px; }
+
+  /* ============ FOOTER ============ */
+  .footer { border-top: 2px solid #14232E; margin-top: 6px; padding-top: 5px; display: flex; justify-content: space-between; gap: 12px; font-size: 9px; line-height: 1.45; color: #3D4A55; }
+  .footer b { color: #14232E; letter-spacing: 1px; }
+  .footer .right { text-align: right; flex: none; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- DATE BAR -->
+  <div class="datebar">
+    <span>THURSDAY, 19 NOVEMBER 2026</span>
+    <span class="mid">27 STORIES &middot; 7 REGIONS &middot; ONE PAGE</span>
+    <span>EDITION N&ordm; 19</span>
+  </div>
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <h1>THE WORLD <span class="red">LEDGER</span></h1>
+    <div class="tag">The whole planet, on one page &mdash; every story that mattered today.</div>
+  </div>
+
+  <!-- HEADLINE -->
+  <div class="headline">
+    <h2>FIRST-EVER TRUMP&ndash;XI&ndash;PUTIN SUMMIT</h2>
+    <p>Three leaders meet in Shenzhen as war, trade and nukes top the agenda &mdash; and 26 more stories from a day that refused to slow down.</p>
+  </div>
+
+  <div class="grid">
+    <div class="main">
+
+      <!-- HERO TRIO -->
+      <div class="heroes">
+        <div class="hero">
+          <svg viewBox="0 0 190 74">
+            <rect x="0" y="0" width="190" height="74" fill="#14232E"/>
+            <rect x="14" y="10" width="34" height="22" fill="#B22234"/><rect x="14" y="10" width="34" height="3" fill="#fff"/><rect x="14" y="16" width="34" height="3" fill="#fff"/><rect x="14" y="22" width="34" height="3" fill="#fff"/><rect x="14" y="28" width="34" height="3" fill="#fff"/><rect x="14" y="10" width="14" height="12" fill="#3C3B6E"/>
+            <rect x="78" y="10" width="34" height="22" fill="#DE2910"/><circle cx="86" cy="17" r="2.4" fill="#FFDE00"/><circle cx="95" cy="14" r="1.4" fill="#FFDE00"/><circle cx="99" cy="19" r="1.4" fill="#FFDE00"/><circle cx="95" cy="24" r="1.4" fill="#FFDE00"/><circle cx="88" cy="25" r="1.4" fill="#FFDE00"/>
+            <rect x="142" y="10" width="34" height="22" fill="#fff"/><rect x="142" y="17.3" width="34" height="7.4" fill="#0039A6"/><rect x="142" y="24.7" width="34" height="7.3" fill="#D52B1E"/>
+            <circle cx="31" cy="48" r="9" fill="#F2C14E"/><path d="M14 74 Q14 58 31 58 Q48 58 48 74 Z" fill="#F2C14E"/>
+            <circle cx="95" cy="48" r="9" fill="#E8A33D"/><path d="M78 74 Q78 58 95 58 Q112 58 112 74 Z" fill="#E8A33D"/>
+            <circle cx="159" cy="48" r="9" fill="#D8DEE3"/><path d="M142 74 Q142 58 159 58 Q176 58 176 74 Z" fill="#D8DEE3"/>
+            <rect x="8" y="66" width="174" height="3" fill="#F6F1E3"/>
+          </svg>
+          <div class="kicker" style="color:#B3352B">POLITICS &middot; SHENZHEN</div>
+          <h3>Three leaders, one room</h3>
+          <p>Trump, Xi and Putin hold the first-ever three-way summit &mdash; one hour for nuclear arms, Ukraine and Iran.</p>
+          <div class="src">REUTERS</div>
+        </div>
+        <div class="hero">
+          <svg viewBox="0 0 190 74">
+            <rect x="0" y="0" width="190" height="74" fill="#DCE9EC"/>
+            <path d="M0 52 L190 52 L190 74 L0 74 Z" fill="#2B5E8C"/>
+            <path d="M0 58 Q24 54 48 58 T96 58 T144 58 T190 58 L190 74 L0 74 Z" fill="#1E4A70"/>
+            <rect x="20" y="46" width="150" height="5" fill="#14232E"/>
+            <rect x="52" y="20" width="5" height="28" fill="#14232E"/><rect x="133" y="20" width="5" height="28" fill="#14232E"/>
+            <path d="M52 22 L95 40 L133 22" stroke="#14232E" stroke-width="1.6" fill="none"/>
+            <path d="M95 40 L95 46" stroke="#14232E" stroke-width="1.6"/>
+            <path d="M95 34 l3 -8 3 8 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 Z" fill="#B3352B"/>
+            <circle cx="95" cy="34" r="12" fill="none" stroke="#B3352B" stroke-width="1.4" stroke-dasharray="3 3"/>
+          </svg>
+          <div class="kicker" style="color:#8C2F1B">CONFLICT &middot; CRIMEA</div>
+          <h3>The bridge, hit again</h3>
+          <p>Ukraine strikes the Kerch Bridge for the third time in a week; traffic is halted as Russia assesses damage to the railway span.</p>
+          <div class="src">REUTERS</div>
+        </div>
+        <div class="hero">
+          <svg viewBox="0 0 190 74">
+            <rect x="0" y="0" width="190" height="74" fill="#EDE7D3"/>
+            <path d="M30 26 L95 8 L160 26 Z" fill="#14232E"/>
+            <rect x="40" y="28" width="8" height="26" fill="#14232E"/><rect x="70" y="28" width="8" height="26" fill="#14232E"/><rect x="100" y="28" width="8" height="26" fill="#14232E"/><rect x="130" y="28" width="8" height="26" fill="#14232E"/><rect x="34" y="54" width="122" height="6" fill="#14232E"/>
+            <circle cx="95" cy="18" r="4" fill="#B3352B"/>
+            <rect x="34" y="62" width="122" height="4" fill="#B3352B"/>
+          </svg>
+          <div class="kicker" style="color:#6A4C93">LAW &middot; THE HAGUE</div>
+          <h3>Justice day in The Hague</h3>
+          <p>The world court rules today in Gambia v. Myanmar &mdash; the first-ever verdict in a case of one state accusing another of genocide.</p>
+          <div class="src">REUTERS</div>
+        </div>
+      </div>
+
+      <!-- PULL NUMBERS -->
+      <div class="pulls">
+        <div class="pull"><div class="num">17<span class="unit">M</span></div><div class="lbl">copies of <b>GTA VI</b> sold as the game launches worldwide &mdash; REUTERS</div></div>
+        <div class="pull"><div class="num">46,701</div><div class="lbl">people evacuated in <b>Odisha</b> as Cyclone Akvan closes in &mdash; IMD</div></div>
+        <div class="pull"><div class="num">$81.3<span class="unit">BN</span></div><div class="lbl"><b>Anthropic&rsquo;s IPO</b> &mdash; the biggest stock-market debut ever &mdash; REUTERS</div></div>
+        <div class="pull markets"><div class="num" style="font-size:15px; padding-top:4px;">MARKETS</div>
+          <div class="bar-row"><span class="bar-lbl">Brent</span><span class="bar" style="width:52px"></span><span class="bar-val">$92.12 &middot; +0.18%</span></div>
+          <div class="bar-row"><span class="bar-lbl">WTI</span><span class="bar neg" style="width:30px"></span><span class="bar-val">&minus;3.2% prev. session</span></div>
+          <div class="lbl" style="margin-top:5px;">Oil steadies as Gulf shipments return near pre-war levels. &mdash; REUTERS</div>
+        </div>
+      </div>
+
+      <!-- MAP -->
+      <div class="mapbox">
+        <div class="maphead"><span>WHERE IT HAPPENED &mdash; THE 11 MAIN STORIES, MAPPED</span><span>dots numbered in list order</span></div>
+        <svg viewBox="0 0 640 158">
+<circle cx="286.7" cy="4.2" r="1.8" fill="#8A9A90"/>
+<circle cx="300.0" cy="4.2" r="1.8" fill="#8A9A90"/>
+<circle cx="313.3" cy="4.2" r="1.8" fill="#8A9A90"/>
+<circle cx="273.3" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="286.7" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="300.0" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="313.3" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="406.7" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="420.0" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="433.3" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="446.7" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="460.0" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="473.3" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="486.7" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="500.0" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="513.3" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="526.7" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="540.0" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="593.3" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="606.7" cy="12.5" r="1.8" fill="#8A9A90"/>
+<circle cx="33.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="46.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="60.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="73.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="86.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="113.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="126.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="140.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="193.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="206.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="220.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="286.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="300.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="313.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="393.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="406.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="420.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="433.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="446.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="460.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="473.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="486.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="500.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="513.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="526.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="540.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="593.3" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="606.7" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="620.0" cy="20.8" r="1.8" fill="#8A9A90"/>
+<circle cx="33.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="46.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="60.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="73.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="86.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="113.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="126.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="140.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="193.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="206.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="220.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="233.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="300.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="380.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="393.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="406.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="420.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="433.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="446.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="460.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="473.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="486.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="500.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="513.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="526.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="540.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="593.3" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="606.7" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="620.0" cy="29.1" r="1.8" fill="#8A9A90"/>
+<circle cx="46.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="60.0" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="73.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="113.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="126.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="140.0" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="193.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="206.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="220.0" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="233.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="246.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="313.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="380.0" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="393.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="406.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="420.0" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="433.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="446.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="460.0" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="473.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="486.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="500.0" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="513.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="526.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="540.0" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="593.3" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="606.7" cy="37.4" r="1.8" fill="#8A9A90"/>
+<circle cx="100.0" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="113.3" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="126.7" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="140.0" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="193.3" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="206.7" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="220.0" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="233.3" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="326.7" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="380.0" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="393.3" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="406.7" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="420.0" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="433.3" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="446.7" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="460.0" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="473.3" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="486.7" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="500.0" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="513.3" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="526.7" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="540.0" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="593.3" cy="45.7" r="1.8" fill="#8A9A90"/>
+<circle cx="113.3" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="126.7" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="140.0" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="193.3" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="206.7" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="220.0" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="313.3" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="326.7" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="380.0" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="393.3" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="420.0" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="433.3" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="446.7" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="460.0" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="473.3" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="486.7" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="500.0" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="513.3" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="526.7" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="540.0" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="593.3" cy="54.1" r="1.8" fill="#8A9A90"/>
+<circle cx="126.7" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="140.0" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="193.3" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="206.7" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="313.3" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="326.7" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="380.0" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="393.3" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="406.7" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="420.0" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="433.3" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="446.7" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="460.0" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="473.3" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="486.7" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="500.0" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="513.3" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="526.7" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="540.0" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="62.4" r="1.8" fill="#8A9A90"/>
+<circle cx="100.0" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="113.3" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="126.7" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="140.0" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="313.3" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="326.7" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="380.0" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="393.3" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="406.7" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="420.0" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="433.3" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="446.7" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="486.7" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="500.0" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="513.3" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="540.0" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="70.7" r="1.8" fill="#8A9A90"/>
+<circle cx="113.3" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="126.7" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="140.0" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="300.0" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="313.3" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="326.7" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="433.3" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="446.7" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="486.7" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="500.0" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="513.3" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="540.0" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="79.0" r="1.8" fill="#8A9A90"/>
+<circle cx="113.3" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="126.7" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="313.3" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="326.7" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="380.0" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="486.7" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="500.0" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="540.0" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="87.3" r="1.8" fill="#8A9A90"/>
+<circle cx="140.0" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="326.7" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="380.0" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="393.3" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="540.0" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="95.6" r="1.8" fill="#8A9A90"/>
+<circle cx="140.0" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="193.3" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="380.0" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="393.3" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="593.3" cy="103.9" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="193.3" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="380.0" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="393.3" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="593.3" cy="112.3" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="193.3" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="380.0" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="406.7" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="593.3" cy="120.6" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="128.9" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="128.9" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="128.9" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="128.9" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="128.9" r="1.8" fill="#8A9A90"/>
+<circle cx="366.7" cy="128.9" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="128.9" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="128.9" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="128.9" r="1.8" fill="#8A9A90"/>
+<circle cx="593.3" cy="128.9" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="137.2" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="137.2" r="1.8" fill="#8A9A90"/>
+<circle cx="180.0" cy="137.2" r="1.8" fill="#8A9A90"/>
+<circle cx="340.0" cy="137.2" r="1.8" fill="#8A9A90"/>
+<circle cx="353.3" cy="137.2" r="1.8" fill="#8A9A90"/>
+<circle cx="553.3" cy="137.2" r="1.8" fill="#8A9A90"/>
+<circle cx="566.7" cy="137.2" r="1.8" fill="#8A9A90"/>
+<circle cx="580.0" cy="137.2" r="1.8" fill="#8A9A90"/>
+<circle cx="606.7" cy="137.2" r="1.8" fill="#8A9A90"/>
+<circle cx="620.0" cy="137.2" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="145.5" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="145.5" r="1.8" fill="#8A9A90"/>
+<circle cx="606.7" cy="145.5" r="1.8" fill="#8A9A90"/>
+<circle cx="153.3" cy="153.8" r="1.8" fill="#8A9A90"/>
+<circle cx="166.7" cy="153.8" r="1.8" fill="#8A9A90"/>
+<g><circle cx="522.8" cy="72.6" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="522.8" y="72.6" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">1</text></g>
+<g><circle cx="327.6" cy="40.7" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="327.6" y="40.7" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">2</text></g>
+<g><circle cx="384.9" cy="48.0" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="384.9" y="48.0" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">3</text></g>
+<g><circle cx="471.3" cy="74.9" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="471.3" y="74.9" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">4</text></g>
+<g><circle cx="630.8" cy="141.1" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="630.8" y="141.1" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">5</text></g>
+<g><circle cx="102.4" cy="56.1" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="102.4" y="56.1" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">6</text></g>
+<g><circle cx="305.6" cy="28.4" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="305.6" y="28.4" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">7</text></g>
+<g><circle cx="377.8" cy="80.0" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="377.8" y="80.0" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">8</text></g>
+<g><circle cx="403.0" cy="70.2" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="403.0" y="70.2" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">9</text></g>
+<g><circle cx="568.4" cy="58.4" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="568.4" y="58.4" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">10</text></g>
+<g><circle cx="585.1" cy="134.7" r="7.5" fill="#B3352B" stroke="#F6F1E3" stroke-width="1.5"/><text x="585.1" y="134.7" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="bold" fill="#F6F1E3" text-anchor="middle" dominant-baseline="central">11</text></g>
+        </svg>
+      </div>
+
+      <!-- NUMBERED LIST -->
+      <div class="list">
+        <div class="listcol">
+          <div class="item"><div class="num-badge">1</div><div class="txt"><div class="title">First-ever Trump&ndash;Xi&ndash;Putin summit <span class="cat" style="color:#B3352B">POLITICS</span></div><div class="body">One hour in Shenzhen for nuclear arms, Ukraine and Iran &mdash; agendas differ, no breakthrough expected. <span class="s">REUTERS</span></div></div></div>
+          <div class="item"><div class="num-badge">2</div><div class="txt"><div class="title">The Hague rules on the Rohingya <span class="cat" style="color:#6A4C93">LAW</span></div><div class="body">The world court delivers its verdict in Gambia v. Myanmar, filed in 2019 &mdash; a first for a state genocide case. <span class="s">REUTERS</span></div></div></div>
+          <div class="item"><div class="num-badge">3</div><div class="txt"><div class="title">Kerch Bridge hit a third time <span class="cat" style="color:#8C2F1B">CONFLICT</span></div><div class="body">Overnight strike halts traffic; the railway section is reported hit as damage is assessed. <span class="s">REUTERS</span></div></div></div>
+          <div class="item"><div class="num-badge">4</div><div class="txt"><div class="title">Cyclone Akvan bears down on India <span class="cat" style="color:#0E6E6A">DISASTER</span></div><div class="body">Severe storm off Odisha; 46,701 evacuated, landfall due noon Friday with winds to 110 kmph. <span class="s">IMD</span></div></div></div>
+          <div class="item"><div class="num-badge">5</div><div class="txt"><div class="title">GTA VI goes on sale worldwide <span class="cat" style="color:#2B5E8C">CULTURE</span></div><div class="body">Rollout begins at midnight in New Zealand; 17m copies sold, 99/100 on Metacritic from 140+ reviews. <span class="s">REUTERS</span></div></div></div>
+          <div class="item"><div class="num-badge">6</div><div class="txt"><div class="title">Anthropic lists as ANT <span class="cat" style="color:#A86A12">ECONOMY</span></div><div class="body">Claude-maker debuts on Nasdaq after pricing at $83 &mdash; an $81.3bn sale valuing it near $1.5tn. <span class="s">REUTERS</span></div></div></div>
+        </div>
+        <div class="listcol">
+          <div class="item"><div class="num-badge">7</div><div class="txt"><div class="title">Brent steadies at $92.12 <span class="cat" style="color:#A86A12">ECONOMY</span></div><div class="body">Crude edges up 0.18% as Hormuz shipments return near pre-war levels; WTI fell 3.2% a day earlier. <span class="s">REUTERS</span></div></div></div>
+          <div class="item"><div class="num-badge">8</div><div class="txt"><div class="title">Sudan accuses Ethiopia and UAE <span class="cat" style="color:#8C2F1B">CONFLICT</span></div><div class="body">Khartoum alleges four drone attacks launched from Ethiopia with UAE-supplied drones; envoy recalled. <span class="s">AL JAZEERA</span></div></div></div>
+          <div class="item"><div class="num-badge">9</div><div class="txt"><div class="title">Missile threat over Riyadh <span class="cat" style="color:#8C2F1B">CONFLICT</span></div><div class="body">A Houthi missile towards the Saudi capital is dealt with after a boom shakes the city; debris falls. <span class="s">REUTERS</span></div></div></div>
+          <div class="item"><div class="num-badge">10</div><div class="txt"><div class="title">India&ndash;Japan hold 2+2 talks <span class="cat" style="color:#B3352B">POLITICS</span></div><div class="body">Foreign and defence ministers meet in Tokyo on defence tech, maritime security and the Indo-Pacific. <span class="s">PTI</span></div></div></div>
+          <div class="item"><div class="num-badge">11</div><div class="txt"><div class="title">Australia&rsquo;s jobless rate jumps <span class="cat" style="color:#A86A12">ECONOMY</span></div><div class="body">Unemployment hits 4.9%, a five-year high, as 43,500 jobs vanish in October &mdash; far worse than forecast. <span class="s">ABS</span></div></div></div>
+          <div class="item"><div class="num-badge" style="background:#B3352B">&#10003;</div><div class="txt"><div class="title">How to read this page</div><div class="body">Every number above comes from a named source. Main stories 1&ndash;11 are mapped; 12&ndash;27 are in the sidebar. <span class="s">THE WORLD LEDGER</span></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="side">
+      <div class="sidebar">
+        <div class="sidehead"><h4>ALSO ON 19 NOV 2026</h4><p>16 MORE STORIES &middot; IN BRIEF</p></div>
+        <div class="side-items">
+          <div class="sitem"><div class="n">12</div><div class="t"><b>COP31, final hours.</b> 21 issues still unresolved in Antalya as fresh draft texts land Thursday. <span class="s">UN NEWS</span></div></div>
+          <div class="sitem"><div class="n">13</div><div class="t"><b>Voyager 1, one light-day out.</b> NASA confirms the probe is 16.1bn miles away &mdash; a first for any human object. <span class="s">NASA</span></div></div>
+          <div class="sitem"><div class="n">14</div><div class="t"><b>Gaza.</b> Israeli tanks roll past the Yellow Line onto the main north&ndash;south road; families flee. <span class="s">REUTERS</span></div></div>
+          <div class="sitem"><div class="n">15</div><div class="t"><b>Brazil.</b> Lula signs the decree for a 5&times;2 workweek, starting 16 December. <span class="s">PARTICLE</span></div></div>
+          <div class="sitem"><div class="n">16</div><div class="t"><b>One in four women</b> worldwide cannot refuse sex in marriage, a UN report finds. <span class="s">GUARDIAN</span></div></div>
+          <div class="sitem"><div class="n">17</div><div class="t"><b>Spain.</b> Doctors march in some 20 cities as their strike enters its fourth day. <span class="s">CATALUNYA INFO</span></div></div>
+          <div class="sitem"><div class="n">18</div><div class="t"><b>Canada.</b> Carney, in Shenzhen: a US trade deal is &ldquo;possible&rdquo; but &ldquo;not there yet&rdquo;. <span class="s">CANADIAN PRESS</span></div></div>
+          <div class="sitem"><div class="n">19</div><div class="t"><b>EU&ndash;Indonesia.</b> EU governments approve a trade pact to offset US tariffs. <span class="s">EU COUNCIL</span></div></div>
+          <div class="sitem"><div class="n">20</div><div class="t"><b>Sudan.</b> A senior RSF commander defects as the war grinds on. <span class="s">ANADOLU</span></div></div>
+          <div class="sitem"><div class="n">21</div><div class="t"><b>Honduras.</b> Twelve killed; the Yoro region is declared high-risk territory. <span class="s">SABC</span></div></div>
+          <div class="sitem"><div class="n">22</div><div class="t"><b>Ecuador.</b> Fishermen sue over a drone strike near the Gal&aacute;pagos. <span class="s">NEWS MEDIA HOUSE</span></div></div>
+          <div class="sitem"><div class="n">23</div><div class="t"><b>Cricket.</b> South Africa dominate Bangladesh on day one of the opening Test. <span class="s">SABC</span></div></div>
+          <div class="sitem"><div class="n">24</div><div class="t"><b>Tennis.</b> Ash Barty is inducted into the hall of fame. <span class="s">ABC NEWS</span></div></div>
+          <div class="sitem"><div class="n">25</div><div class="t"><b>Kenya.</b> Drought empties dairy shelves; milk hits 100 shillings a packet in Nairobi. <span class="s">AL JAZEERA</span></div></div>
+          <div class="sitem"><div class="n">26</div><div class="t"><b>Florida.</b> NTSB: the helicopter that crashed in Biscayne Bay flew &ldquo;extremely&rdquo; low. <span class="s">AP</span></div></div>
+          <div class="sitem"><div class="n">27</div><div class="t"><b>Somalia.</b> Federal standoff deepens as two states suspend cooperation with Mogadishu. <span class="s">AL JAZEERA</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div><b>SOURCES</b> &mdash; Reuters &middot; AP &middot; Al Jazeera &middot; IMD &middot; PTI &middot; ABS &middot; NASA &middot; UN News &middot; The Guardian &middot; Canadian Press &middot; Anadolu &middot; SABC &middot; ABC News &middot; EU Council &middot; Catalunya Info &middot; Particle News &middot; News Media House. Every claim on this page is sourced; figures are as reported on 19 November 2026.</div>
+    <div class="right"><b>THE WORLD LEDGER</b><br>19 NOV 2026 &middot; ONE PAGE<br>27 STORIES &middot; 7 REGIONS</div>
+  </div>
+
+</div>
+<script>window.__shotReady = true;</script>
+</body>
+</html>
